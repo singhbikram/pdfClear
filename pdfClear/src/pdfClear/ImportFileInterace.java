@@ -7,5 +7,5 @@ public interface ImportFileInterace{
 	/**import single page .hocr file
 	 * @return list of word objects */
 	public List<Object> readHOCR(String pagePath);	
-	//CHANGE
+	//CHANGE 2
 }
