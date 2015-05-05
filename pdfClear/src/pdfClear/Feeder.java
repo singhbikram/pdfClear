@@ -23,7 +23,7 @@ public class Feeder  implements FeederInterface {
     {
         baseNames = names;
         //create a 'Doc' object.
-        Doc docthing = new Doc(workFolder, sourceFolder/*, outType*/);
+        Doc docthing = new Doc(workFolder, sourceFolder, doneFolder, outType);
         // send a basename/file to be done
         for (String basename: baseNames)
             docthing.doDoc(basename);

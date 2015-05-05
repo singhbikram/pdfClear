@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
-public class Doc
+public class Doc implements DocInterface
 {
     private int outType;
     private String workFolder;
@@ -25,12 +25,18 @@ public class Doc
         postp = new PostProcess(outType,workFolder, donefolder);
     }
 
-    public void doDoc(String basename) throws IOException
+    public void doDoc(String basename) 
     {
         //TODO: copy basename.pdf?? from source folder into work folder
     	File sourceFile = new File(sourceFolder + basename + ".pdf");
     	File destFile = new File(workFolder + basename + ".pdf");
-        Files.copy(sourceFile.toPath(), destFile.toPath() ); //,REPLACE_EXISTING,COPY_ATTRIBUTES
+        try {
+			Files.copy(sourceFile.toPath(), destFile.toPath() );//,REPLACE_EXISTING,COPY_ATTRIBUTES
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        
         //sends the  basename, returns an array or pages, each an array of Word objects
         ArrayList<ArrayList<Word>> wordLists= prep.doDoc(basename);
         //sends the words to structure the page. 

@@ -9,17 +9,17 @@ import java.util.Properties;
  class Main {
     private static String sourceFolder;
     private static String doneFolder;
-    private static String errFolder;
     private static String workFolder;
     private static int numberOfThreads;
+    private static int outType;
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {	
         loadConfigFile();
-       List baseName=loadBaseName();
-       Feeder feeder=new Feeder(baseName,sourceFolder,workFolder,doneFolder,errFolder,numberOfThreads);
-       feeder.processList();
+       String[] baseName=loadBaseName();
+       Feeder feeder=new Feeder(sourceFolder,workFolder,doneFolder,numberOfThreads,outType);
+       feeder.processList(baseName);
     }
     private static void loadConfigFile(){
         Properties config = new Properties();
@@ -40,8 +40,8 @@ import java.util.Properties;
                 //get the property value and print it out
                 sourceFolder=config.getProperty("sourceFolder");
     	        doneFolder=config.getProperty("doneFolder");
-    	        errFolder=config.getProperty("errFolder");
                 workFolder=config.getProperty("workFolder");
+                outType=Integer.parseInt(config.getProperty("outType"));
                 numberOfThreads=Integer.parseInt(config.getProperty("threads"));
     	} catch (IOException ex) {
     		ex.printStackTrace();
@@ -56,17 +56,18 @@ import java.util.Properties;
         }
  
     }
-    private static List loadBaseName(){
+    private static String[] loadBaseName(){
          File directory = new File(sourceFolder);
         File[] fList = directory.listFiles();
-        List<String> bName=new ArrayList<String>();
+        int i=0;
+        ArrayList<String> bName=new ArrayList<String>();
         for(File f: fList){
             String name=f.getName();
             if(name.endsWith(".pdf")){
                 bName.add(name.substring(0, name.length()-4));
             }
         }
-        return bName;
+        return (String[]) bName.toArray();
     }
     
 }
