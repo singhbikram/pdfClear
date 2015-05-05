@@ -1,12 +1,15 @@
 package pdfClear;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
-public class ProcessDoc implements ProcessDocInterface {
+public class ProcessPage implements ProcessPageInterface {
+
+	private String _workFolder;
+	
+	public ProcessPage(String workFolder) {
+		_workFolder = workFolder;
+	}
+	
 	@Override
 	public ArrayList<WordBlock> processPage(ArrayList<Word> wordList) {
 		ArrayList<WordBlock> wordLayout = new ArrayList<WordBlock>();

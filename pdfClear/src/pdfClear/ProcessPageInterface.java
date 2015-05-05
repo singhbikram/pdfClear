@@ -5,7 +5,7 @@ import java.util.List;
 
 
 
-public interface ProcessDocInterface{
+public interface ProcessPageInterface{
 	/*
 	 * produces structure for single page
 	 */

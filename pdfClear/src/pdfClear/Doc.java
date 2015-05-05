@@ -1,32 +1,45 @@
 package pdfClear;
-package default package;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.ArrayList;
+
 public class Doc
 {
     private int outType;
     private String workFolder;
     private String sourceFolder;
     private int pageCount;
+    private PreProcess prep;
+    private ProcessPage procstru;
+    private PostProcess postp;
 
     //constructor
-    public Doc(String workfolder, String sourcefolder/*errfolder? donefolder?*/)
+    public Doc(String workfolder, String sourcefolder, String donefolder,int outType)
     {
         workFolder = workfolder;
         sourceFolder = sourcefolder;
-        PreProcess prep = new PreProcess(workFolder);
-        ProcessStructure procstru = new ProcessStructure(workFolder);
-        PostProcess postp = new PostProcess();
+        prep = new PreProcess(workFolder);
+        procstru = new ProcessPage(workFolder);
+        postp = new PostProcess(outType,workFolder, donefolder);
     }
 
-    public void doDoc(String basename)
+    public void doDoc(String basename) throws IOException
     {
         //TODO: copy basename.pdf?? from source folder into work folder
-        //copy (sourceFolder + "/" + basename + ".pdf") -> (workFolder + "/" + basename + ".pdf")
-        //sends the doc, basename, and workfolder. returns an array(???) of words [Type?]
-        wordList = prep.preProcessDoc(baseName);
+    	File sourceFile = new File(sourceFolder + basename + ".pdf");
+    	File destFile = new File(workFolder + basename + ".pdf");
+        Files.copy(sourceFile.toPath(), destFile.toPath() ); //,REPLACE_EXISTING,COPY_ATTRIBUTES
+        //sends the  basename, returns an array or pages, each an array of Word objects
+        ArrayList<ArrayList<Word>> wordLists= prep.doDoc(basename);
         //sends the words to structure the page. 
-        procstru.processStructureDoc(wordList);
-        
-        //sends the finished doc to be cleaned up. return value???
+        ArrayList<ArrayList<WordBlock>> wordBlocks = new ArrayList<ArrayList<WordBlock>>();
+        for (ArrayList<Word> wordList: wordLists){
+        	wordBlocks.add( procstru.processPage(wordList));
+        }
+        //sends the finished doc to be cleaned up and output
+        postp.outputFile(wordLists,wordBlocks, basename);
         
     }
 }
