@@ -80,24 +80,4 @@ public class WordList {
 
 	  
 	
-		
-	class Word
-	{
-		int y1, y2, x1, x2;
-		String data;
-		String title;
-		public Word()// int i, int j, int k, int l, String s)
-		{
-			y1 =0;
-			y2=0;
-			x1 =0;
-			x2 =0;
-			data = null;
-			title = null;
-		}
-		@Override
-		  public String toString() {
-		    return "Word: " + y1 + " " + y2 + " " + x1 + " " + x2 + " " + data +" "+ title;
-		  }
-	}//end word object
 //}//end class wordList

@@ -8,5 +8,5 @@ public interface ImportFileInterace{
 	public Void ImportFileInterace();		
 	/**import single page .hocr file
 	 * @return list of word objects */
-	public List<Object> readHOCR(String pagePath);	
+	public List<Word> readHOCR(String pagePath);	
 }
