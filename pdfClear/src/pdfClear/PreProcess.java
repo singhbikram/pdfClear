@@ -10,13 +10,8 @@ public class PreProcess implements PreProcessInterface {
 	private String _workFolder;//="/home/chrisc/pdfClear/workFolder/";
 	private ImportFile _importer;
 	private ArrayList<ArrayList<Word>> _pageList ;
-	public Void PreProcess() {
+	public Void PreProcess(String workFolder) {
 		_importer = new ImportFile();
-		return null;
-	}
-
-	@Override
-	public Void setWorkFolder(String workFolder){	
 		_workFolder = workFolder;
 		return null;
 	}
