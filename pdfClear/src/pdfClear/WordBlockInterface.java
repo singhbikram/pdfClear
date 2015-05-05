@@ -19,6 +19,6 @@ public interface WordBlockInterface{
 	public int getx2();
 	//outputs block's y1. 
 	public int gety1();
-	//outputs block's y2. 
+	//outputs block's y2 
 	public int gety2();
 }
