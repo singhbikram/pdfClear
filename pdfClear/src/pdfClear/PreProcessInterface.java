@@ -3,10 +3,11 @@ package pdfClear;
 import java.util.List;
 
 
-public interface ImportFileInterace{
+
+public interface PreProcessInterface{
 	/*Constructor*/
-	public Void ImportFileInterace();		
+	public Void setWorkFolder(String workFolder);	
 	/**import single page .hocr file
 	 * @return list of word objects */
-	public List<Object> readHOCR(String pagePath);	
+	public List<Word> doDoc(String basename);	 
 }
