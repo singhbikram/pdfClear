@@ -18,6 +18,7 @@ public class ProcessDoc implements ProcessDocInterface {
 			  block.setLines(parser.sortBlock(wordList,block.getIncluded()));
 			}
 		//block typing
+		//reorder wordLayout into read order
 		return wordLayout;
 	}
 
