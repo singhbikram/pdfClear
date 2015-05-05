@@ -10,5 +10,5 @@ public interface PreProcessInterface{
 	public Void setWorkFolder(String workFolder);	
 	/**import single page .hocr file
 	 * @return list of word objects */
-	public ArrayList<ArrayList<Word>> doDoc(String basename);	 
+	public ArrayList<ArrayList<Word>> doDoc(String basename);
 }

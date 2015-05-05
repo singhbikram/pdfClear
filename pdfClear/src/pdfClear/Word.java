@@ -12,7 +12,7 @@ public class Word implements WordInterface {
 	//private List<Character> high =Arrays.asList('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','b','d','f','h','I','j','k','l','t');
 	//private List<Character> low =Arrays.asList('g','j','p','q','y');
 	
-	public Void Word(int x1,int x2,int y1,int y2,String title)// int i, int j, int k, int l, String s)
+	public Word(int x1,int x2,int y1,int y2,String title)// int i, int j, int k, int l, String s)
 	{
 		_x1=x1;
 		_x2=x2;
@@ -25,7 +25,6 @@ public class Word implements WordInterface {
 		}
 		_h=_y2-_y1;
 		_ymid = (y1+y2)/2;
-		return null;
 	}
 
 	@Override
