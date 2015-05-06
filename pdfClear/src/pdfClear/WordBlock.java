@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class WordBlock implements WordBlockInterface {
+	
 
 	@Override
 	public int[] getIncluded() {
