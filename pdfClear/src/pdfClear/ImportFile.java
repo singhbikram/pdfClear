@@ -63,64 +63,20 @@ public class ImportFile  implements ImportFileInterface {
 		}
 	
 	
-	/*
-		public static void main(String[] args) throws Exception {
-	    SAXParserFactory parserFactor = SAXParserFactory.newInstance();
-	    SAXParser parser = parserFactor.newSAXParser();
-	    SAXHandler handler = new SAXHandler();
-	    parser.parse(ClassLoader.getSystemResourceAsStream("ocrProject/sampleHOCR.xml"), 
-	                 handler);
-	    //Printing the list of words obtained from XML
-	    for ( Word word : handler.wordList){
-	      System.out.println(word);
-	    }
-	  }
-
-	}*/
-	/**
-	 * The Handler for SAX Events.
-	 */
-	/*class SAXHandler extends DefaultHandler {
-
-	  List<Word> wordList = new ArrayList<>();
-	  Word word = null;
-	  String content = null;
-	  @Override
-	  //Triggered when the start of tag is found.
-	  public void startElement(String uri, String localName, 
-	                           String qName, Attributes attributes) 
-	                           throws SAXException {
-
-	    switch(qName){
-	      //Create a new Employee object when the start tag is found
-	      case "span":
-	        word = new Word();
-	        word.title = attributes.getValue("title");
-	        word.data = attributes.getValue("character");
-	        break;
-	    }
-	  }
-
-	  @Override
-	  public void endElement(String uri, String localName, 
-	                         String qName) throws SAXException {
-	   switch(qName){
-	     //Add the employee to list once end tag is found
-	     case "span":
-	       wordList.add(word);       
-	       word.data = content;
-	       break;
-	     
-	   }
-	  }
-
-	  @Override
-	  public void characters(char[] ch, int start, int length) 
-	          throws SAXException {
-	    content = String.copyValueOf(ch, start, length).trim();
-	  }
-
-	}*/
+	/*List<Word> wordlist = new ArrayList<Word>();
+	    	String fileName = "D:/eclipse/Javaworkspace/pdfClear/src/pdfClear/sampleHOCR.xml";
+	    	FileInputStream fis = new FileInputStream(fileName);
+	    	
+	    	@SuppressWarnings("resource")
+			String StringFis = new Scanner(fis, "UTF-8").useDelimiter("\\A").next();
+	    	
+	    	Pattern p = Pattern.compile("<span class=\'ocrx_word\' id=\'word_\\d++_\\d++\' title=\'bbox (\\d++) (\\d++) (\\d++) (\\d++); x_wconf \\d++\' lang=\'eng\' dir=\'\\w++\'>([^<]++)</span>");
+			Matcher m = p.matcher(StringFis);
+			
+			while(m.find()){
+				wordlist.add(new Word(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5)));
+			}//while
+		*/
 
 	
 
