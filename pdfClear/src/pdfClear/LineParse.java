@@ -16,7 +16,6 @@ public class LineParse implements LineParseInterface {
 			QuickSort quick= new QuickSort();
 			quick.sort(included, wordList);
 			int[] id=new int[height];
-			int[] firstIndex=new int[height];
 			int[] midY=new int[height];
 			for(int i: included){
 				int y2=wordList.get(i).getBottom();//y1
@@ -53,7 +52,7 @@ public class LineParse implements LineParseInterface {
 				}else{
 					m.get(indexInList).add(i);
 				}
-				unite(y1,y2,id,indexInList,firstIndex);
+				unite(y1,y2,id,indexInList);
 				
 			}
 			return m;
@@ -116,7 +115,7 @@ public class LineParse implements LineParseInterface {
 	private boolean isOccupied(int y1,int y2,int[] id){
 		return id[y1]!=0||id[y2]!=0;
 	}
-	private void unite(int y1,int y2,int[] id,int index,int[] firstIndex){
+	private void unite(int y1,int y2,int[] id,int index){
 		
 		uniteDirection(y1,y2+1,id,index,bottomUp);
 		uniteDirection(y2,y1-1,id,index,topDown);
