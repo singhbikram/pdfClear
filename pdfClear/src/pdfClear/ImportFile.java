@@ -50,7 +50,9 @@ public class ImportFile  implements ImportFileInterface {
 			    int count = m.groupCount();
 			    
 			    for(int i=1;i<=5;i++){
+			    	if(Integer.parseInt(m.group(3))-Integer.parseInt(m.group(1))>7 && Integer.parseInt(m.group(4))-Integer.parseInt(m.group(2))>7){
 			        wordList.add(new Word(Integer.parseInt(m.group(1)),Integer.parseInt(m.group(2)),Integer.parseInt(m.group(3)),Integer.parseInt(m.group(4)),m.group(5)));
+			    	}
 			    }
 			}
 		return wordList;

@@ -40,22 +40,22 @@ public class Word implements WordInterface {
 
 	@Override
 	public int getLeft() {
-		return _y1;
-	}
-	
-	@Override
-	public int getRight() {
-		return _y2;
-	}
-	
-	@Override
-	public int getTop() {
 		return _x1;
 	}
 	
 	@Override
-	public int getBottom() {
+	public int getRight() {
 		return _x2;
+	}
+	
+	@Override
+	public int getTop() {
+		return _y1;
+	}
+	
+	@Override
+	public int getBottom() {
+		return _y2;
 	}
 
 	@Override

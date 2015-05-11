@@ -9,8 +9,10 @@ public class LineParse implements LineParseInterface {
 	private int curLine=1;
 	@Override
 	public ArrayList<LinkedList<Integer>> sortBlock(ArrayList<Word> wordList,
-			int[] included) {
-			int height=wordList.size();	
+			WordBlock block) {
+		int[] included = block.getIncluded();
+		int topLine = block.getTop();
+			int height=block.getHeight();	
 			ArrayList<LinkedList<Integer>> m=new ArrayList<LinkedList<Integer>>();
 			m.add(new LinkedList<Integer>());
 			QuickSort quick= new QuickSort();
@@ -18,8 +20,8 @@ public class LineParse implements LineParseInterface {
 			int[] id=new int[height];
 			int[] midY=new int[height];
 			for(int i: included){
-				int y2=wordList.get(i).getBottom();//y1
-				int y1=wordList.get(i).getTop();//y2
+				int y2=wordList.get(i).getBottom()-topLine;//y1
+				int y1=wordList.get(i).getTop()-topLine;//y2
 				int indexInList=getLine(y1,y2,midY,1);
 				if(midY[indexInList]==0){
 				midY[indexInList]=(y1+y2)/2;
