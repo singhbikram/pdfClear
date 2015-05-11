@@ -78,7 +78,6 @@ public class ProcessPage implements ProcessPageInterface {
 		int totalWordHeight = 0;
 		wordLoop: for (int i = 0; i < wordCount; i++) {
 			Word currWord = wordList.get(i);
-			System.out.println("h: "+currWord.getHeight());
 			totalWordHeight += currWord.getHeight();
 			int w_left = currWord.getLeft();
 			int w_right = currWord.getRight();
@@ -97,11 +96,9 @@ public class ProcessPage implements ProcessPageInterface {
 			}
 			_wordBlocks.add(new WordBlock(currWord, i));
 		}
-		System.out.println("blocks: "+_wordBlocks.size());
 		// merge blocks
 		infLoop: while (true) {
 			int blockCount = _wordBlocks.size();
-			System.out.println("blocksm: "+_wordBlocks.size());
 			for (int i = 0; i < blockCount; i++) {
 				WordBlock aBlock = _wordBlocks.get(i);
 				int a_left = aBlock.getLeft();

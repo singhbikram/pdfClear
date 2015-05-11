@@ -39,7 +39,6 @@ public class ImportFile  implements ImportFileInterface {
 		String raw;
 		try {
 			raw = loadFile(pagePath);
-			System.out.print(raw);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
