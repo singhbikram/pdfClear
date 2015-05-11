@@ -1,4 +1,5 @@
 package pdfClear;
+
 /**
  * 
  */
@@ -38,6 +39,7 @@ public class ImportFile  implements ImportFileInterface {
 		String raw;
 		try {
 			raw = loadFile(pagePath);
+			System.out.print(raw);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -47,19 +49,16 @@ public class ImportFile  implements ImportFileInterface {
 		Pattern p = Pattern.compile("<span class=\'ocrx_word\' id=\'word_\\d++_\\d++\' title=\'bbox (\\d++) (\\d++) (\\d++) (\\d++); x_wconf \\d++\' lang=\'eng\' dir=\'\\w++\'>([^<]++)</span>");
 		 Matcher m = p.matcher(raw);
 		 while(m.find()){
-			    int count = m.groupCount();
-			    
-			    for(int i=1;i<=5;i++){
-			    	if(Integer.parseInt(m.group(3))-Integer.parseInt(m.group(1))>7 && Integer.parseInt(m.group(4))-Integer.parseInt(m.group(2))>7){
-			        wordList.add(new Word(Integer.parseInt(m.group(1)),Integer.parseInt(m.group(2)),Integer.parseInt(m.group(3)),Integer.parseInt(m.group(4)),m.group(5)));
-			    	}
-			    }
+			 if(Integer.parseInt(m.group(3))-Integer.parseInt(m.group(1))>7 && Integer.parseInt(m.group(4))-Integer.parseInt(m.group(2))>7){
+			       wordList.add(new Word(Integer.parseInt(m.group(1)),Integer.parseInt(m.group(2)),Integer.parseInt(m.group(3)),Integer.parseInt(m.group(4)),m.group(5)));
+			 }
 			}
 		return wordList;
 	}
 	
 	//get text from file
 	private String loadFile(String pagePath) throws IOException{
+		
 		  byte[] encoded = Files.readAllBytes(Paths.get(pagePath));
 		  return new String(encoded, StandardCharsets.UTF_8);
 		}

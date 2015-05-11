@@ -30,10 +30,10 @@ public class Word implements WordInterface {
 		_y1=y1;
 		_y2=y2;
 		_title=title;
-		for (int i = 0; i < title.length(); i++){
-		    char c = title.charAt(i);        
-		    //Process char
-		}
+//		for (int i = 0; i < title.length(); i++){
+//		    char c = title.charAt(i);        
+//		    //Process char
+//		}
 		_h=_y2-_y1;
 		_ymid = (y1+y2)/2;
 	}

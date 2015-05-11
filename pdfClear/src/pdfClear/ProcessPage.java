@@ -15,8 +15,8 @@ public class ProcessPage implements ProcessPageInterface {
 	private String _baseName="";
 	private ArrayList<WordBlock> _wordBlocks;
 	private ArrayList<Word> _wordList;
-	private int _threshold_y = 0;
-	private int _threshold_x = 0;
+	private int _threshold_y = 100;
+	private int _threshold_x = 125;
 	private int _avgWordHeight = 0;
 	private LineParse _lineParser = new LineParse();
 
@@ -36,7 +36,7 @@ public class ProcessPage implements ProcessPageInterface {
 		makePic();
 		// send off for line analysis and word sorting per block
 		for (WordBlock block : _wordBlocks) {
-			block.setLines(_lineParser.sortBlock(wordList, block));
+			//block.setLines(_lineParser.sortBlock(wordList, block));
 		}
 		// block typing
 		// reorder wordLayout into read order
@@ -62,7 +62,6 @@ public class ProcessPage implements ProcessPageInterface {
 		Graphics2D g2 = img.createGraphics();
 		g2.setColor( Color.red );
 		for(WordBlock block : _wordBlocks) {
-//		    g2.fillRect( 300, 300, 300, 300);
 			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()-block.getLeft(), block.getBottom()-block.getTop(), 5, 5);
 		}
 	    g2.dispose( );
@@ -92,7 +91,6 @@ public class ProcessPage implements ProcessPageInterface {
 				int b_bot = block.getBottom();
 				if (overlaps(b_left, b_right, b_top, b_bot, w_left, w_right,
 						w_top, w_bot)) {
-					//System.out.println("adding block");
 					block.addWord(currWord, i);
 					continue wordLoop;
 				}

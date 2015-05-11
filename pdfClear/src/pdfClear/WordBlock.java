@@ -10,6 +10,7 @@ public class WordBlock implements WordBlockInterface {
 	private int _y2;
 	private int _blockType=0;
 	private ArrayList<Integer> _includedWords;
+	private ArrayList<LinkedList<Integer>> _lines;
 
 	public WordBlock(Word firstWord,int i){
 		_x1=firstWord.getLeft();
@@ -31,13 +32,12 @@ public class WordBlock implements WordBlockInterface {
 
 	@Override
 	public void setLines(ArrayList<LinkedList<Integer>> lines) {
-		// TODO Auto-generated method stub
+		_lines = lines;
 	}
 
 	@Override
 	public ArrayList<LinkedList<Integer>> getLines() {
-		// TODO Auto-generated method stub
-		return null;
+		return _lines;
 	}
 
 	@Override
