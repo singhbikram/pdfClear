@@ -68,6 +68,11 @@ public class Word implements WordInterface {
 		return _h;
 	}
 
+	@Override
+	public String getWord() {
+		return _title;
+	}
+
 	public String toString() {
 	    return "Word: " + _y1 + " " + _y2 + " " + _x1 + " " + _x2 + " " + _data +" "+ _title;
 	  }

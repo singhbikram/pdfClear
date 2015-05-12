@@ -19,6 +19,9 @@ public interface WordInterface{
 	public int getBottom();
 	/*returns bottom edge of bounding box
 	 */
+	public String getWord();
+	/*returns bottom edge of bounding box
+	 */
 	public int getHeight();
 	/** further public methods may be needed as discovered. You will also need to include methods for use in PostProcess.java*/
 }

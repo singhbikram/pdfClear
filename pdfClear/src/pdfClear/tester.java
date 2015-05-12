@@ -12,8 +12,8 @@ public class tester {
 		String workDir="/home/chrisc/Documents/School/java/labs/pdfClear/pdfClear/src/pdfClear/work/";
 		ProcessPage ppage = new ProcessPage(workDir);
 		ImportFile fileIn = new ImportFile();
-		ArrayList<Word> wordList = fileIn.readHOCR(workDir + "test2.hocr");
-		ArrayList<WordBlock> wordBlocks = ppage.processPage( wordList,"test2");
+		ArrayList<Word> wordList = fileIn.readHOCR(workDir + "test1.hocr");
+		ArrayList<WordBlock> wordBlocks = ppage.processPage( wordList,"test1");
 	}
 
 }

@@ -35,9 +35,22 @@ public class ProcessPage implements ProcessPageInterface {
 		
 		//FOR TESTING: print out picture of page and bounding boxes
 		// send off for line analysis and word sorting per block
+		int showBlock=0;
 		for (WordBlock block : _wordBlocks) {
-			block.setLines(_lineParser.sortBlock(wordList, block));
+			showBlock++;
+			if(showBlock==3){
+			ArrayList<LinkedList<Integer>> lineList = _lineParser.sortBlock(wordList, block);
+			//block.setLines(lineList);
+			for(LinkedList<Integer> line: lineList){
+				System.out.println("line length: "+line.size());
+				 for (int i = 0; i < line.size(); i++) {
+					 System.out.println("    Word: "+line.get(i)+" = "+_wordList.get(line.get(i)).getWord());
+				 }
+			}
+			break;
+			}
 		}
+		
 		makePic();
 		// block typing
 		// reorder wordLayout into read order
@@ -64,12 +77,12 @@ public class ProcessPage implements ProcessPageInterface {
 		g2.setColor( Color.red );
 		for(WordBlock block : _wordBlocks) {
 			 ArrayList<LinkedList<Integer>> lines = block.getLines();
-			 LinkedList<Integer> line=lines.get(0);
-			 System.out.println(lines.size());
-			 for (int i = 0; i < line.size(); i++) {
-				 Word word = _wordList.get(line.get(i));
-				 g2.drawRoundRect(word.getLeft(), word.getTop(), word.getRight()-word.getLeft(), word.getBottom()-word.getTop(), 5, 5);
-			 }
+//			 LinkedList<Integer> line=lines.get(0);
+			// System.out.println(lines.size());
+//			 for (int i = 0; i < line.size(); i++) {
+//				 Word word = _wordList.get(line.get(i));
+//				 g2.drawRoundRect(word.getLeft(), word.getTop(), word.getRight()-word.getLeft(), word.getBottom()-word.getTop(), 5, 5);
+//			 }
 		}
 	    g2.dispose( );
 		try {
