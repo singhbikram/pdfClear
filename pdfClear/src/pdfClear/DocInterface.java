@@ -1,10 +1,12 @@
 package pdfClear;
 
+import java.util.concurrent.Semaphore;
+
 
 public interface DocInterface{
 	//constructor
-//    public Doc(String workfolder, String sourcefolder, String donefolder,int outType)
+//    Doc(String workfolder, String sourcefolder, String donefolder,int outType, String basename, Semaphore ava)
 	
 	//does doc
-	public void doDoc(String basename);
+	public void run();
 }
