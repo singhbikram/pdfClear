@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
@@ -33,11 +34,11 @@ public class ProcessPage implements ProcessPageInterface {
 		// logical clustering
 		
 		//FOR TESTING: print out picture of page and bounding boxes
-		makePic();
 		// send off for line analysis and word sorting per block
 		for (WordBlock block : _wordBlocks) {
-			//block.setLines(_lineParser.sortBlock(wordList, block));
+			block.setLines(_lineParser.sortBlock(wordList, block));
 		}
+		makePic();
 		// block typing
 		// reorder wordLayout into read order
 		return _wordBlocks;
@@ -62,7 +63,13 @@ public class ProcessPage implements ProcessPageInterface {
 		Graphics2D g2 = img.createGraphics();
 		g2.setColor( Color.red );
 		for(WordBlock block : _wordBlocks) {
-			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()-block.getLeft(), block.getBottom()-block.getTop(), 5, 5);
+			 ArrayList<LinkedList<Integer>> lines = block.getLines();
+			 LinkedList<Integer> line=lines.get(0);
+			 System.out.println(lines.size());
+			 for (int i = 0; i < line.size(); i++) {
+				 Word word = _wordList.get(line.get(i));
+				 g2.drawRoundRect(word.getLeft(), word.getTop(), word.getRight()-word.getLeft(), word.getBottom()-word.getTop(), 5, 5);
+			 }
 		}
 	    g2.dispose( );
 		try {
