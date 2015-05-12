@@ -6,11 +6,12 @@ import java.util.LinkedList;
 public class LineParse implements LineParseInterface {
 	private int bottomUp=1;
 	private int topDown=-1;
-	private int curLine=1;
+	private int curLine;
 	@Override
 	public ArrayList<LinkedList<Integer>> sortBlock(ArrayList<Word> wordList,
 			WordBlock block) {
 		int[] included = block.getIncluded();
+		curLine=1;
 		int topLine = block.getTop();
 			int height=block.getHeight();	
 			ArrayList<LinkedList<Integer>> m=new ArrayList<LinkedList<Integer>>();
