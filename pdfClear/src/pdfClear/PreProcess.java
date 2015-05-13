@@ -21,13 +21,15 @@ public class PreProcess implements PreProcessInterface {
 		int pageCount=0;
 		try {
 		// Extract Images
-			Process p = Runtime.getRuntime().exec("pdfimages " + _workFolder + basename + ".pdf " + basename );
+			Runtime run = Runtime.getRuntime();
+			System.out.println(new String[]{"pdfimages ",_workFolder + basename + ".pdf ",basename});
+			Process p = run.exec(new String[]{"/bin/bash","pdfimages ", _workFolder + basename + ".pdf ", basename} );
 			p.waitFor();
 		// OCR doc  
-			p = Runtime.getRuntime().exec("for i in " + _workFolder + basename + "-*.pbm ; do tesseract $i `basename \"$i\" .pbm` hocr; done;"  );
+			p = run.exec("/bin/bash for i in " + _workFolder + basename + "-*.pbm ; do tesseract $i `basename \"$i\" .pbm` hocr; done;"  );
 			p.waitFor();
 		// get pageCount  
-			p = Runtime.getRuntime().exec("ls " + _workFolder + basename + "-*.hocr | wc -l"  );
+			p = run.exec("/bin/bash ls " + _workFolder + basename + "-*.hocr | wc -l"  );
 			p.waitFor();
 			BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
 			String ret = reader.readLine();

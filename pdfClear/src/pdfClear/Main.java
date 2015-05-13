@@ -1,6 +1,8 @@
 package pdfClear;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -23,24 +25,30 @@ import java.util.Properties;
     }
     private static void loadConfigFile(){
         Properties config = new Properties();
-    	InputStream input = null;
+        InputStream input = null;
  
+        
+        
     	try {
  
     		String filename = "configFile.properties";
-    		input = Main.class.getClassLoader().getResourceAsStream(filename);
+    		input = Main.class.getResourceAsStream(filename);
     		if(input==null){
     	            System.out.println("Sorry, unable to find " + filename);
     		    return;
     		}
+    		
  
     		//load a properties file from class path, inside static method
     		config.load(input);
  
                 //get the property value and print it out
                 sourceFolder=config.getProperty("sourceFolder");
+                sourceFolder=sourceFolder.substring(1,sourceFolder.length()-1);
     	        doneFolder=config.getProperty("doneFolder");
+    	        doneFolder=doneFolder.substring(1,doneFolder.length()-1);
                 workFolder=config.getProperty("workFolder");
+                workFolder=workFolder.substring(1,workFolder.length()-1);
                 outType=Integer.parseInt(config.getProperty("outType"));
                 numberOfThreads=Integer.parseInt(config.getProperty("threads"));
     	} catch (IOException ex) {
@@ -57,8 +65,8 @@ import java.util.Properties;
  
     }
     private static String[] loadBaseName(){
-         File directory = new File(sourceFolder);
-        File[] fList = directory.listFiles();
+    	 File directory = new File(sourceFolder);
+         File[] fList = directory.listFiles();
         int i=0;
         ArrayList<String> bName=new ArrayList<String>();
         for(File f: fList){
@@ -67,7 +75,11 @@ import java.util.Properties;
                 bName.add(name.substring(0, name.length()-4));
             }
         }
-        return (String[]) bName.toArray();
+        String[] baseNames = new String[bName.size()];
+        for(int z=0;z<bName.size();z++){
+        	baseNames[z]=bName.get(z);
+        }
+        return  baseNames;
     }
     
 }
