@@ -33,12 +33,12 @@ public class PostProcess implements PostProcessInterface {
 				+ "\n\t<meta name='ocr-system' content='tesseract 3.03' />\n\t<meta name='ocr-capabilities' content='ocr_page "
 				+ "ocr_carea ocr_par ocr_line ocrx_word'/>\n</head>\n<body>"; 
 		String footer = "\n\t</body>\n</html>";
-		int pageNumber = 1;
+		int pageNumber = 0;
 		for(int page = 0;  page < pages_wordBlocks.size(); page++){  // for loop for one page
 			 
 			ArrayList<WordBlock> wordBlocks =  pages_wordBlocks.get(page); //for loop 1
 			ArrayList<Word> wordList =  pages_wordList.get(page); //for loop 1
-				//start new file add header
+			pageNumber++;  // increment the pagenumber to create new file for the next page
 			String filePath = String.format("D:/eclipse/Javaworkspace/test/src/test/result%03d.xml", pageNumber);
 			File file = new File(filePath);
 			FileOutputStream fos = new FileOutputStream(file);
@@ -66,9 +66,10 @@ public class PostProcess implements PostProcessInterface {
 					int wordNum = 0;
 					for(LinkedList<Integer> line : lines){   //for loop for iterating through lines
 						// adds a line attribute to the span tag
+						Word firstWord = wordList.get(line.get(0));
 						lineNum++;
 						String lineNumber = String.format("line_%d", lineNum);
-						String string = "<span class='hocr_line' id='"+lineNumber+"' title=\"bbox "+line.getLeft()+ " "+line.getRight()+ " "+line.getTop()+ " "+line.getBottom()+ " "+"; baseline 0 -8\">";
+						String string = "<span class='hocr_line' id='"+lineNumber+"' title=\"bbox "+firstWord.getLeft()+ " "+firstWord.getRight()+ " "+firstWord.getTop()+ " "+firstWord.getBottom()+ " "+"; baseline 0 -8\">";
 						FileOutputStream stream = new FileOutputStream(filePath, true);
 						try {
 						    stream.write(string.getBytes("UTF-8")
@@ -121,8 +122,7 @@ public class PostProcess implements PostProcessInterface {
 		    } finally {
 		    stream.close();
 		    }// addes the footer to the page
-			pageNumber++;  // increment the pagenumber to create new file for the next page
-			}//// for loop for one page
+		}//// for loop for one page
 	}// end outputFile
 }// end postPorocess Class
 }
