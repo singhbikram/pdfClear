@@ -62,23 +62,6 @@ public class ImportFile  implements ImportFileInterface {
 		  return new String(encoded, StandardCharsets.UTF_8);
 		}
 	
-	
-	/*List<Word> wordlist = new ArrayList<Word>();
-	    	String fileName = "D:/eclipse/Javaworkspace/pdfClear/src/pdfClear/sampleHOCR.xml";
-	    	FileInputStream fis = new FileInputStream(fileName);
-	    	
-	    	@SuppressWarnings("resource")
-			String StringFis = new Scanner(fis, "UTF-8").useDelimiter("\\A").next();
-	    	
-	    	Pattern p = Pattern.compile("<span class=\'ocrx_word\' id=\'word_\\d++_\\d++\' title=\'bbox (\\d++) (\\d++) (\\d++) (\\d++); x_wconf \\d++\' lang=\'eng\' dir=\'\\w++\'>([^<]++)</span>");
-			Matcher m = p.matcher(StringFis);
-			
-			while(m.find()){
-				wordlist.add(new Word(m.group(1),m.group(2),m.group(3),m.group(4),m.group(5)));
-			}//while
-		*/
-
-	
 
 	  
 	

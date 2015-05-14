@@ -52,62 +52,9 @@ public class ProcessPage implements ProcessPageInterface {
 		}
 
 		// block typing
-//		makePic();
 		// reorder wordLayout into read order
 		return _wordBlocks;
 	}
-/*
-	private void makePic() {
-		// for testing only
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(_workFolder + _baseName + ".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Graphics2D g2 = img.createGraphics();
-		for (WordBlock block : _wordBlocks) {
-			g2.setStroke(new BasicStroke(5));
-			g2.setColor(Color.red);
-			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()
-					- block.getLeft(), block.getBottom() - block.getTop(), 5, 5);
-			ArrayList<LinkedList<Integer>> lines = block.getLines();
-			// for(LinkedList<Integer> line:lines){
-			for (LinkedList<Integer> line : lines) {
-				int x1 = _wordList.get(line.get(0)).getLeft();
-				int x2 = _wordList.get(line.get(0)).getRight();
-				int y1 = _wordList.get(line.get(0)).getTop();
-				int y2 = _wordList.get(line.get(0)).getBottom();
-				for (int i = 0; i < line.size(); i++) {
-					if (x1 > _wordList.get(line.get(i)).getLeft()) {
-						x1 = _wordList.get(line.get(i)).getLeft();
-					}
-					if (x2 < _wordList.get(line.get(i)).getRight()) {
-						x2 = _wordList.get(line.get(i)).getRight();
-					}
-					if (y1 > _wordList.get(line.get(i)).getTop()) {
-						y1 = _wordList.get(line.get(i)).getTop();
-					}
-					if (y2 < _wordList.get(line.get(i)).getBottom()) {
-						y2 = _wordList.get(line.get(i)).getBottom();
-					}
-				}
-				g2.setStroke(new BasicStroke(3));
-				g2.setColor(Color.blue);
-				g2.drawRoundRect(x1, y1, x2 - x1, y2 - y1, 5, 5);
-			}
-		}
-		g2.dispose();
-		try {
-			ImageIO.write(img, "JPG", new File(_doneFolder + _baseName
-					+ "_vis.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
 
 	public ArrayList<WordBlock> processPage(ArrayList<Word> wordList,
 			String baseName) {
