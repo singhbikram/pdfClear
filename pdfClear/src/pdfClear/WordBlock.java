@@ -10,7 +10,7 @@ public class WordBlock implements WordBlockInterface {
 	private int _y2;
 	private int _blockType=0;
 	private ArrayList<Integer> _includedWords;
-	private ArrayList<LinkedList<Integer>> _lines;
+	private ArrayList<LinkedList<Integer>> _lines = new ArrayList<LinkedList<Integer>>();
 
 	public WordBlock(Word firstWord,int i){
 		_x1=firstWord.getLeft();
@@ -27,6 +27,7 @@ public class WordBlock implements WordBlockInterface {
 		for(int i=0;i<_includedWords.size();i++){
 			inc[i]=_includedWords.get(i);
 		}
+//		System.out.println(_includedWords.size()+" : "+inc.length);
 		return inc;
 	}
 
@@ -72,6 +73,7 @@ public class WordBlock implements WordBlockInterface {
 		//expand bounding box
 		joinBBox(x1,x2,y1,y2);
 		_includedWords.add(i);
+
 	}
 	private void joinBBox(int x1,int x2,int y1,int y2){
 		if(x1<_x1){

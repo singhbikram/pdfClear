@@ -3,6 +3,7 @@ import java.util.concurrent.Semaphore;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 public class Doc extends Thread implements DocInterface
@@ -38,7 +39,7 @@ public class Doc extends Thread implements DocInterface
         File sourceFile = new File(sourceFolder + basename + ".pdf");
         File destFile = new File(workFolder + basename + ".pdf");
         try {
-                        Files.copy(sourceFile.toPath(), destFile.toPath() );//,REPLACE_EXISTING,COPY_ATTRIBUTES
+                        Files.copy(sourceFile.toPath(), destFile.toPath() ,  StandardCopyOption.REPLACE_EXISTING);//,REPLACE_EXISTING,COPY_ATTRIBUTES
                 } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

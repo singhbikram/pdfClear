@@ -24,7 +24,7 @@ public class PostProcess implements PostProcessInterface {
 	 * @see pdfClear.PostProcessInterface#outputFile(java.util.ArrayList, java.util.ArrayList, java.lang.String)
 	 */
 	@Override
-	public void outputFile(ArrayList<ArrayList<Word>> pages_wordList, ArrayList<ArrayList<WordBlock>> pages_wordBlocks, String baseName) throws UnsupportedEncodingException, IOException{
+	public void outputFile(ArrayList<ArrayList<Word>> pages_wordList, ArrayList<ArrayList<WordBlock>> pages_wordBlocks, String baseName){
 		// TODO Auto-generated method stub
 		String header ="<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\n\t\""
 				+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">"
@@ -40,6 +40,11 @@ public class PostProcess implements PostProcessInterface {
 			ArrayList<Word> wordList =  pages_wordList.get(page); //for loop 1
 			pageNumber++;  // increment the pagenumber to create new file for the next page
 			String filePath = String.format("D:/eclipse/Javaworkspace/test/src/test/result%03d.hocr", pageNumber);
+			
+			StringBuilder builder = new StringBuilder();
+            
+            //return builder.toString();
+			
 			// File will create a file per page in the filepath location
 			File file = new File(filePath);
 			FileOutputStream fos = new FileOutputStream(file);
@@ -130,4 +135,4 @@ public class PostProcess implements PostProcessInterface {
 		}//// for loop for one page
 	}// end outputFile
 }// end postPorocess Class
-}
+
