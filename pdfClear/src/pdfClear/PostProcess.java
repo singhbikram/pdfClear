@@ -153,6 +153,15 @@ public class PostProcess implements PostProcessInterface {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			try {
+				File sourceFile = new File("/home/chrisc/Documents/School/java/labs/pdfClear/pdfClear/src/pdfClear/jnk/"+baseName+"-"+String.format("%03d", page)+"_vis.jpg");
+				File destFile = new File(_doneFolder+baseName+"-"+String.format("%03d", page)+"_vis.jpg");
+				Files.copy(sourceFile.toPath(), destFile.toPath(),
+						StandardCopyOption.REPLACE_EXISTING);// ,REPLACE_EXISTING,COPY_ATTRIBUTES
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}// // for loop for one page
 	}// end outputFile
 }// end postPorocess Class

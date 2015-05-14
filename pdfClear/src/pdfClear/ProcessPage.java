@@ -19,8 +19,8 @@ public class ProcessPage implements ProcessPageInterface {
 	private String _baseName = "";
 	private ArrayList<WordBlock> _wordBlocks;
 	private ArrayList<Word> _wordList;
-	private int _threshold_y = 10;
-	private int _threshold_x = 19;
+	private int _threshold_y = 38;
+	private int _threshold_x = 43;
 	private int _avgWordHeight = 0;
 	private int _pic = 0;
 	private LineParse _lineParser = new LineParse();
@@ -52,11 +52,11 @@ public class ProcessPage implements ProcessPageInterface {
 		}
 
 		// block typing
-		makePic();
+//		makePic();
 		// reorder wordLayout into read order
 		return _wordBlocks;
 	}
-
+/*
 	private void makePic() {
 		// for testing only
 		BufferedImage img = null;
@@ -93,13 +93,6 @@ public class ProcessPage implements ProcessPageInterface {
 					if (y2 < _wordList.get(line.get(i)).getBottom()) {
 						y2 = _wordList.get(line.get(i)).getBottom();
 					}
-
-					/*
-					 * Word word = _wordList.get(line.get(i));
-					 * g2.drawRoundRect(word.getLeft(), word.getTop(),
-					 * word.getRight() - word.getLeft(), word.getBottom() -
-					 * word.getTop(), 5, 5);
-					 */
 				}
 				g2.setStroke(new BasicStroke(3));
 				g2.setColor(Color.blue);
@@ -114,7 +107,7 @@ public class ProcessPage implements ProcessPageInterface {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public ArrayList<WordBlock> processPage(ArrayList<Word> wordList,
 			String baseName) {
