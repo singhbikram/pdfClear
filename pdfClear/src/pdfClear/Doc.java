@@ -24,6 +24,7 @@ public class Doc extends Thread implements DocInterface
         workFolder = workfolder;
         sourceFolder = sourcefolder;
         this.basename = basename;
+        //brings the thread counting Semaphore from Feeder:
         available = ava;
         prep = new PreProcess(workFolder);
         procstru = new ProcessPage(workFolder);
@@ -33,7 +34,7 @@ public class Doc extends Thread implements DocInterface
 
     public void run()
     {
-        //TODO: copy basename.pdf?? from source folder into work folder
+        //copy basename.pdf from source folder into work folder
         File sourceFile = new File(sourceFolder + basename + ".pdf");
         File destFile = new File(workFolder + basename + ".pdf");
         try {
@@ -52,6 +53,7 @@ public class Doc extends Thread implements DocInterface
         }
         //sends the finished doc to be cleaned up and output
         postp.outputFile(wordLists,wordBlocks, basename);
+        //ends the thread
         available.release();
     }
 }
