@@ -39,19 +39,22 @@ public class PostProcess implements PostProcessInterface {
 			ArrayList<WordBlock> wordBlocks =  pages_wordBlocks.get(page); //for loop 1
 			ArrayList<Word> wordList =  pages_wordList.get(page); //for loop 1
 			pageNumber++;  // increment the pagenumber to create new file for the next page
-			String filePath = String.format("D:/eclipse/Javaworkspace/test/src/test/result%03d.xml", pageNumber);
+			String filePath = String.format("D:/eclipse/Javaworkspace/test/src/test/result%03d.hocr", pageNumber);
+			// File will create a file per page in the filepath location
 			File file = new File(filePath);
 			FileOutputStream fos = new FileOutputStream(file);
 			PrintStream ps = new PrintStream(fos);
 			System.setOut(ps);
 			// adds header to the target file
 			System.out.println(header);
+			//variable to number blocks
 			int blockNumm = 0;
 			//iterate through every block
 			for(WordBlock block: wordBlocks){   //for loop for adding a block
-	 				//add hocr block descriptor 
+	 				//increments the block number 
 					blockNumm++;
 					String blockNumber = String.format("block_%d", blockNumm);
+					//adds hocr block descriptor
 					String stringB = "<span class='hocr_line' id='"+blockNumber+"' title=\"bbox "+block.getLeft()+ " "+block.getRight()+ " "+block.getTop()+ " "+block.getBottom()+ " "+"; baseline 0 -8\">";
 					FileOutputStream stream2 = new FileOutputStream(filePath, true);
 					try {
@@ -61,10 +64,12 @@ public class PostProcess implements PostProcessInterface {
 					    stream2.close();
 					}// adds block descriptor 
 					ArrayList<LinkedList<Integer>> lines;
+					//lines gives the list of all the lines in a block
 					lines = block.getLines();
 					int lineNum = 0;
 					int wordNum = 0;
-					for(LinkedList<Integer> line : lines){   //for loop for iterating through lines
+					//for loop for iterating through lines
+					for(LinkedList<Integer> line : lines){   
 						// adds a line attribute to the span tag
 						Word firstWord = wordList.get(line.get(0));
 						lineNum++;
