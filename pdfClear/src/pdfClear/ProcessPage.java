@@ -35,7 +35,6 @@ public class ProcessPage implements ProcessPageInterface {
 		// initial clustering
 		_avgWordHeight = sortToBlocks(wordList);
 
-		//makePicBlock();
 		// logical clustering
 
 		// FOR TESTING: print out picture of page and bounding boxes
@@ -67,94 +66,7 @@ public class ProcessPage implements ProcessPageInterface {
 		return _wordBlocks;
 	}
 
-	private void makePicBlock() {
-		// for testing only
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(_workFolder + _baseName + ".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		Graphics2D g2 = img.createGraphics();
-		g2.setColor(Color.red);
-		for (WordBlock block : _wordBlocks) {
-			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()
-					- block.getLeft(), block.getBottom() - block.getTop(), 5, 5);
-		}
-		g2.dispose();
-		try {
-			ImageIO.write(img, "JPG", new File(_workFolder + _baseName
-					+ "_vis.jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	private void makePic() {
-		// for testing only
-		BufferedImage img = null;
-		try {
-			img = ImageIO.read(new File(_workFolder + _baseName + ".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		Graphics2D g2 = img.createGraphics();
-		for (WordBlock block : _wordBlocks) {
-			g2.setStroke(new BasicStroke(5));
-			g2.setColor(Color.red);
-			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()
-					- block.getLeft(), block.getBottom() - block.getTop(), 5, 5);
-			ArrayList<LinkedList<Integer>> lines = block.getLines();
-			// for(LinkedList<Integer> line:lines){
-//			System.out.println(lines.size());
-			for(LinkedList<Integer> line: lines){
-				int x1=_wordList.get(line.get(0)).getLeft();
-				int x2=_wordList.get(line.get(0)).getRight();
-				int y1=_wordList.get(line.get(0)).getTop();
-				int y2=_wordList.get(line.get(0)).getBottom();
-
-				g2.setStroke(new BasicStroke(2));
-				g2.setColor(Color.green);
-			for (int i = 0; i < line.size(); i++) {
-				Word word = _wordList.get(line.get(i));
-				if(x1>word.getLeft()){
-					x1=word.getLeft();
-				}
-				if(x2<word.getRight()){
-					x2=word.getRight();
-				}
-				if(y1>word.getTop()){
-					y1=word.getTop();
-				}
-				if(y2<word.getBottom()){
-					y2=word.getBottom();
-				}
-				
-				g2.drawRoundRect(word.getLeft(), word.getTop(), word.getRight()
-						- word.getLeft(), word.getBottom() - word.getTop(), 5,
-						5);
-			}
-			g2.setStroke(new BasicStroke(2));
-			g2.setColor(Color.blue);
-			g2.drawRoundRect(x1, y1, x2-x1, y2-y1, 5,
-					5);
-			}
-		}
-		g2.dispose();
-		try {
-			_pic++;
-			ImageIO.write(img, "JPG", new File(_workFolder + _baseName
-					+ "_vis_"+String.format("%05d", _pic)+".jpg"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 
 	private int sortToBlocks(ArrayList<Word> wordList) {
 		int wordCount = wordList.size();
@@ -172,9 +84,7 @@ public class ProcessPage implements ProcessPageInterface {
 		}
 		
 		int totalWordHeight = 0;
-		int takePic=0;
 		wordLoop: for (int i = 0; i < wordCount; i++) {
-			takePic++;
 			Word currWord = wordList.get(wordOrder[i]);
 			totalWordHeight += currWord.getHeight();
 			int w_left = currWord.getLeft();
@@ -189,23 +99,13 @@ public class ProcessPage implements ProcessPageInterface {
 				if (overlaps(b_left, b_right, b_top, b_bot, w_left, w_right,
 						w_top, w_bot)) {
 					block.addWord(currWord, i);
-					if(takePic%40==0){
-					 makePic();
-					}
 					continue wordLoop;
 				}
 			}
 			_wordBlocks.add(new WordBlock(currWord, i));
-			if(takePic%40==0){
-				 makePic();
-				}
 		}
 		// merge blocks
 		infLoop: while (true) {
-			takePic++;
-			if(takePic%10==0){
-				 makePic();
-				}
 			int blockCount = _wordBlocks.size();
 			for (int i = 0; i < blockCount; i++) {
 				WordBlock aBlock = _wordBlocks.get(i);
