@@ -15,13 +15,14 @@ import javax.imageio.ImageIO;
 public class ProcessPage implements ProcessPageInterface {
 
 	private String _workFolder;
+	private String _doneFolder = "/home/chrisc/Documents/School/java/labs/pdfClear/pdfClear/src/pdfClear/done/";
 	private String _baseName = "";
 	private ArrayList<WordBlock> _wordBlocks;
 	private ArrayList<Word> _wordList;
 	private int _threshold_y = 10;
 	private int _threshold_x = 19;
 	private int _avgWordHeight = 0;
-	private int _pic=0;
+	private int _pic = 0;
 	private LineParse _lineParser = new LineParse();
 
 	public ProcessPage(String workFolder) {
@@ -40,23 +41,79 @@ public class ProcessPage implements ProcessPageInterface {
 		// FOR TESTING: print out picture of page and bounding boxes
 		// send off for line analysis and word sorting per block
 		for (WordBlock block : _wordBlocks) {
-				ArrayList<LinkedList<Integer>> lineList = _lineParser
-						.sortBlock(wordList, block);
-				block.setLines(lineList);
-				int[] included = block.getIncluded();
-//				System.out.println("WORDS INCLUDED: " + included.length);
-				for (LinkedList<Integer> line : lineList) {
-//					System.out.println("line length: " + line.size());
-					for (int i = 0; i < line.size(); i++) {
-//						System.out.println("    Word: " + line.get(i) + " = "
-//								+ _wordList.get(line.get(i)).getWord());
-					}
+			ArrayList<LinkedList<Integer>> lineList = _lineParser.sortBlock(
+					wordList, block);
+			block.setLines(lineList);
+			int[] included = block.getIncluded();
+			for (LinkedList<Integer> line : lineList) {
+				for (int i = 0; i < line.size(); i++) {
 				}
+			}
 		}
 
 		// block typing
+		makePic();
 		// reorder wordLayout into read order
 		return _wordBlocks;
+	}
+
+	private void makePic() {
+		// for testing only
+		BufferedImage img = null;
+		try {
+			img = ImageIO.read(new File(_workFolder + _baseName + ".jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Graphics2D g2 = img.createGraphics();
+		for (WordBlock block : _wordBlocks) {
+			g2.setStroke(new BasicStroke(5));
+			g2.setColor(Color.red);
+			g2.drawRoundRect(block.getLeft(), block.getTop(), block.getRight()
+					- block.getLeft(), block.getBottom() - block.getTop(), 5, 5);
+			ArrayList<LinkedList<Integer>> lines = block.getLines();
+			// for(LinkedList<Integer> line:lines){
+			for (LinkedList<Integer> line : lines) {
+				int x1 = _wordList.get(line.get(0)).getLeft();
+				int x2 = _wordList.get(line.get(0)).getRight();
+				int y1 = _wordList.get(line.get(0)).getTop();
+				int y2 = _wordList.get(line.get(0)).getBottom();
+				for (int i = 0; i < line.size(); i++) {
+					if (x1 > _wordList.get(line.get(i)).getLeft()) {
+						x1 = _wordList.get(line.get(i)).getLeft();
+					}
+					if (x2 < _wordList.get(line.get(i)).getRight()) {
+						x2 = _wordList.get(line.get(i)).getRight();
+					}
+					if (y1 > _wordList.get(line.get(i)).getTop()) {
+						y1 = _wordList.get(line.get(i)).getTop();
+					}
+					if (y2 < _wordList.get(line.get(i)).getBottom()) {
+						y2 = _wordList.get(line.get(i)).getBottom();
+					}
+
+					/*
+					 * Word word = _wordList.get(line.get(i));
+					 * g2.drawRoundRect(word.getLeft(), word.getTop(),
+					 * word.getRight() - word.getLeft(), word.getBottom() -
+					 * word.getTop(), 5, 5);
+					 */
+				}
+				g2.setStroke(new BasicStroke(3));
+				g2.setColor(Color.blue);
+				g2.drawRoundRect(x1, y1, x2 - x1, y2 - y1, 5, 5);
+			}
+		}
+		g2.dispose();
+		try {
+			ImageIO.write(img, "JPG", new File(_doneFolder + _baseName
+					+ "_vis.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<WordBlock> processPage(ArrayList<Word> wordList,
@@ -66,23 +123,24 @@ public class ProcessPage implements ProcessPageInterface {
 		return _wordBlocks;
 	}
 
-
-
 	private int sortToBlocks(ArrayList<Word> wordList) {
 		int wordCount = wordList.size();
+		if (wordCount < 1) {
+			return 1;
+		}
 		int[] wordOrder = new int[wordList.size()];
 		LinkedList<Integer> rng = new LinkedList<Integer>();
-		for(int i = 0;i<wordList.size();i++){
+		for (int i = 0; i < wordList.size(); i++) {
 			rng.add(i);
 		}
 		Random seed = new Random();
-		int c=0;
-		while(rng.size()>0){
+		int c = 0;
+		while (rng.size() > 0) {
 			int nInt = seed.nextInt(rng.size());
-			wordOrder[c]=rng.remove(nInt);
+			wordOrder[c] = rng.remove(nInt);
 			c++;
 		}
-		
+
 		int totalWordHeight = 0;
 		wordLoop: for (int i = 0; i < wordCount; i++) {
 			Word currWord = wordList.get(wordOrder[i]);

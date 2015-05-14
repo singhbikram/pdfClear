@@ -145,8 +145,8 @@ public class PostProcess implements PostProcessInterface {
 				e.printStackTrace();
 			}
 			try {
-				File sourceFile = new File(_workFolder+baseName+".pbm");
-				File destFile = new File(_doneFolder+baseName+".pbm");
+				File sourceFile = new File(_workFolder+baseName+"-"+String.format("%03d", page)+".pbm");
+				File destFile = new File(_doneFolder+baseName+"-"+String.format("%03d", page)+".pbm");
 				Files.copy(sourceFile.toPath(), destFile.toPath(),
 						StandardCopyOption.REPLACE_EXISTING);// ,REPLACE_EXISTING,COPY_ATTRIBUTES
 			} catch (IOException e) {

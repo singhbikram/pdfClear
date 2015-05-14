@@ -49,8 +49,10 @@ public class Doc extends Thread implements DocInterface
         ArrayList<ArrayList<Word>> wordLists= prep.doDoc(basename);
         //sends the words to structure the page.
         ArrayList<ArrayList<WordBlock>> wordBlocks = new ArrayList<ArrayList<WordBlock>>();
+        int pager=0;
         for (ArrayList<Word> wordList: wordLists){
-                wordBlocks.add( procstru.processPage(wordList));
+                wordBlocks.add( procstru.processPage(wordList,basename+"-"+String.format("%03d", pager)));
+                pager++;
         }
         //sends the finished doc to be cleaned up and output
         postp.outputFile(wordLists,wordBlocks, basename);
